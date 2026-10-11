@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Mini-App</title>
+    <link rel="stylesheet" href="style.css">
+<!-- Firebase CDN -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyA9GbGFZ1usR9BbRxxSUo9L9JJN58OwH78",
+    authDomain: "webpage1-f64db.firebaseapp.com",
+    projectId: "webpage1-f64db",
+    storageBucket: "webpage1-f64db.firebasestorage.app",
+    messagingSenderId: "56331180305",
+    appId: "1:56331180305:web:a089f23611f4e0634c94b0"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+</script>
+
+</head>
+<body>
+
+    <div class="nav">
+        <button class="nav-btn active" data-target="todos">To-Dos</button>
+        <button class="nav-btn" data-target="einkauf">Einkaufsliste</button>
+    </div>
+
+    <div class="app" id="todos">
+        <h1>To‑Dos</h1>
+        <div class="input-area">
+            <input id="todoInput" type="text" placeholder="Neue Aufgabe eingeben...">
+            <input id="todoDate" type="date">
+            <button id="addTodoBtn">Hinzufügen</button>
+        </div>
+        <ul id="todoList"></ul>
+    </div>
+
+    <div class="app hidden" id="einkauf">
+        <h1>Einkaufsliste</h1>
+        <div class="input-area">
+            <input id="shopInput" type="text" placeholder="Artikel eingeben...">
+            <button id="addShopBtn">Hinzufügen</button>
+        </div>
+        <ul id="shopList"></ul>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
