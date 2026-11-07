@@ -1,5 +1,3 @@
-alert("SCRIPT GELADEN");
-
 // Firebase Authentication
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
@@ -9,9 +7,6 @@ const logoutBtn = document.getElementById("logoutBtn");
 const userInfo = document.getElementById("userInfo");
 
 loginBtn.addEventListener("click", async () => {
-
-    alert("Login Button wurde geklickt");
-
     await auth.signInWithPopup(provider);
 });
 
@@ -19,13 +14,30 @@ logoutBtn.addEventListener("click", async () => {
     await auth.signOut();
 });
 
-auth.onAuthStateChanged(user => {
+auth.onAuthStateChanged(async user => {
 
     if (user) {
+
+        const allowedUsers = [
+            "robha88@gmail.com",
+            "tanja.reinartz1988@gmail.com"
+        ];
+
+        if (!allowedUsers.includes(user.email)) {
+
+            alert("Kein Zugriff erlaubt.");
+
+            await auth.signOut();
+
+            return;
+        }
+
         loginBtn.style.display = "none";
         logoutBtn.style.display = "inline-block";
         userInfo.textContent = user.email;
+
     } else {
+
         loginBtn.style.display = "inline-block";
         logoutBtn.style.display = "none";
         userInfo.textContent = "";
