@@ -2,6 +2,33 @@
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
 
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+const userInfo = document.getElementById("userInfo");
+
+loginBtn.addEventListener("click", async () => {
+    await auth.signInWithPopup(provider);
+});
+
+logoutBtn.addEventListener("click", async () => {
+    await auth.signOut();
+});
+
+auth.onAuthStateChanged(user => {
+
+    if (user) {
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "inline-block";
+        userInfo.textContent = user.email;
+    } else {
+        loginBtn.style.display = "inline-block";
+        logoutBtn.style.display = "none";
+        userInfo.textContent = "";
+    }
+
+});
+
+
 // Firestore Referenzen
 const todosRef = db.collection("todos");
 const shopRef = db.collection("shoplist");
