@@ -2,6 +2,10 @@
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
 
+provider.addScope(
+  "https://www.googleapis.com/auth/calendar.readonly"
+);
+
 const loginBtn = document.getElementById("loginBtn");
 const logoutBtn = document.getElementById("logoutBtn");
 const userInfo = document.getElementById("userInfo");
