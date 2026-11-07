@@ -1,3 +1,5 @@
+alert("SCRIPT GELADEN");
+
 // Firebase Authentication
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
