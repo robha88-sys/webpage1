@@ -7,6 +7,9 @@ const logoutBtn = document.getElementById("logoutBtn");
 const userInfo = document.getElementById("userInfo");
 
 loginBtn.addEventListener("click", async () => {
+
+    alert("Login Button wurde geklickt");
+
     await auth.signInWithPopup(provider);
 });
 
