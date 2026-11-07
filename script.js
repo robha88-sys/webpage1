@@ -12,6 +12,7 @@ loginBtn.addEventListener("click", async () => {
 
 logoutBtn.addEventListener("click", async () => {
     await auth.signOut();
+    location.reload();
 });
 
 auth.onAuthStateChanged(async user => {
@@ -36,7 +37,14 @@ auth.onAuthStateChanged(async user => {
         logoutBtn.style.display = "inline-block";
         userInfo.textContent = user.email;
 
+        if (!sessionStorage.getItem("loginRefreshDone")) {
+        sessionStorage.setItem("loginRefreshDone", "true");
+        location.reload();
+    }
+        
     } else {
+
+        sessionStorage.removeItem("loginRefreshDone");
 
         loginBtn.style.display = "inline-block";
         logoutBtn.style.display = "none";
