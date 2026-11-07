@@ -36,6 +36,7 @@
     <div class="nav">
         <button class="nav-btn active" data-target="todos">To-Dos</button>
         <button class="nav-btn" data-target="einkauf">Einkaufsliste</button>
+        <button class="nav-btn" data-target="kalender">Kalender</button>
     </div>
 
     <div class="app" id="todos">
@@ -56,6 +57,14 @@
         </div>
         <ul id="shopList"></ul>
     </div>
+
+    <div class="app hidden" id="kalender">
+    <h1>Familienkalender</h1>
+
+    <div id="calendarContent">
+        Kalender wird geladen...
+    </div>
+</div>
 
     <!-- Dein JavaScript muss IMMER zuletzt geladen werden -->
     <script src="script.js"></script>
