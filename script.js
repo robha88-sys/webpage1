@@ -1,3 +1,7 @@
+// Firebase Authentication
+const auth = firebase.auth();
+const provider = new firebase.auth.GoogleAuthProvider();
+
 // Firestore Referenzen
 const todosRef = db.collection("todos");
 const shopRef = db.collection("shoplist");
