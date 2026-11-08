@@ -47,9 +47,8 @@ auth.onAuthStateChanged(async user => {
         userInfo.textContent = user.email;
     
         if (!sessionStorage.getItem("loginRefreshDone")) {
-        sessionStorage.setItem("loginRefreshDone", "true");
-        location.reload();
-    }
+    console.log("Benutzer angemeldet:", user.email);
+}
         
     } else {
 
