@@ -210,7 +210,9 @@ async function testCalendarAPI() {
             console.log(response.result.items);
 
         } catch (error) {
-            console.error("Kalenderfehler:", error);
+            console.error("Kalenderfehler komplett:");
+            console.log(JSON.stringify(error, null, 2));
+            console.error(error);
         }
 
     });
