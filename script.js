@@ -150,6 +150,15 @@ auth.onAuthStateChanged(async user => {
 
 });
 
+auth.onAuthStateChanged(user => {
+
+    if (!user) return;
+
+    startTodos();
+    startShopping();
+    loadCalendar();
+
+});
 
 // Firestore Referenzen
 const todosRef = db.collection("todos");
