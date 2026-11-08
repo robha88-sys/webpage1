@@ -11,7 +11,12 @@ const logoutBtn = document.getElementById("logoutBtn");
 const userInfo = document.getElementById("userInfo");
 
 loginBtn.addEventListener("click", async () => {
-    await auth.signInWithPopup(provider);
+
+    const result = await auth.signInWithPopup(provider);
+
+    console.log("OAuth Credential:");
+    console.log(result.credential);
+
 });
 
 logoutBtn.addEventListener("click", async () => {
@@ -41,8 +46,6 @@ auth.onAuthStateChanged(async user => {
         logoutBtn.style.display = "inline-block";
         userInfo.textContent = user.email;
     
-        testCalendarAPI();
-
         if (!sessionStorage.getItem("loginRefreshDone")) {
         sessionStorage.setItem("loginRefreshDone", "true");
         location.reload();
@@ -190,31 +193,3 @@ function addShop(id, text, done) {
     shopList.appendChild(li);
 }
 
-async function testCalendarAPI() {
-
-    gapi.load("client", async () => {
-
-        try {
-
-            await gapi.client.init({
-                apiKey: "AIzaSyA9GbGFZ1usR9BbRxxSUo9L9JJN58OwH78",
-                discoveryDocs: [
-                    "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
-                ]
-            });
-
-            const response =
-                await gapi.client.calendar.calendarList.list();
-
-            console.log("Kalenderliste:");
-            console.log(response.result.items);
-
-        } catch (error) {
-            console.error("Kalenderfehler komplett:");
-            console.log(JSON.stringify(error, null, 2));
-            console.error(error);
-        }
-
-    });
-
-}
