@@ -40,6 +40,8 @@ auth.onAuthStateChanged(async user => {
         loginBtn.style.display = "none";
         logoutBtn.style.display = "inline-block";
         userInfo.textContent = user.email;
+    
+        testCalendarAPI();
 
         if (!sessionStorage.getItem("loginRefreshDone")) {
         sessionStorage.setItem("loginRefreshDone", "true");
@@ -186,4 +188,31 @@ function addShop(id, text, done) {
     if (done) textSpan.classList.add("done");
 
     shopList.appendChild(li);
+}
+
+async function testCalendarAPI() {
+
+    gapi.load("client", async () => {
+
+        try {
+
+            await gapi.client.init({
+                apiKey: "AIzaSyA9GbGFZ1usR9BbRxxSUo9L9JJN58OwH78",
+                discoveryDocs: [
+                    "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
+                ]
+            });
+
+            const response =
+                await gapi.client.calendar.calendarList.list();
+
+            console.log("Kalenderliste:");
+            console.log(response.result.items);
+
+        } catch (error) {
+            console.error("Kalenderfehler:", error);
+        }
+
+    });
+
 }
