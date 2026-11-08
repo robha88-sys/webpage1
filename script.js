@@ -19,6 +19,21 @@ loginBtn.addEventListener("click", async () => {
 
     const token = result.credential.accessToken;
 
+const eventsResponse = await fetch(
+  "https://www.googleapis.com/calendar/v3/calendars/family06123350682627900716@group.calendar.google.com/events?maxResults=10&singleEvents=true&orderBy=startTime&timeMin=" + new Date().toISOString(),
+  {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+);
+
+const events = await eventsResponse.json();
+
+console.log("TERMINE:");
+console.log(events);
+
+  
     console.log("ACCESS TOKEN:");
     console.log(token);
 
