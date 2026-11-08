@@ -30,8 +30,34 @@ const eventsResponse = await fetch(
 
 const events = await eventsResponse.json();
 
-console.log("TERMINE:");
-console.log(events);
+const calendarContent =
+    document.getElementById("calendarContent");
+
+calendarContent.innerHTML = "";
+
+events.items.forEach(event => {
+
+    const div = document.createElement("div");
+
+    let datum = "";
+
+    if (event.start.dateTime) {
+        datum = new Date(
+            event.start.dateTime
+        ).toLocaleString("de-DE");
+    } else if (event.start.date) {
+        datum = event.start.date;
+    }
+
+    div.innerHTML = `
+        <strong>${datum}</strong><br>
+        ${event.summary || "(ohne Titel)"}
+        <hr>
+    `;
+
+    calendarContent.appendChild(div);
+
+});
 
   
     console.log("ACCESS TOKEN:");
