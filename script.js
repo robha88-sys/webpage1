@@ -20,7 +20,7 @@ loginBtn.addEventListener("click", async () => {
     const token = result.credential.accessToken;
 
 const eventsResponse = await fetch(
-  "https://www.googleapis.com/calendar/v3/calendars/family06123350682627900716@group.calendar.google.com/events?maxResults=10&singleEvents=true&orderBy=startTime&timeMin=" + new Date().toISOString(),
+  "https://www.googleapis.com/calendar/v3/calendars/family06123350682627900716@group.calendar.google.com/events?maxResults=50&singleEvents=true&orderBy=startTime&timeMin=" + new Date().toISOString(),
   {
     headers: {
       Authorization: `Bearer ${token}`
@@ -40,19 +40,47 @@ events.items.forEach(event => {
     const div = document.createElement("div");
 
     let datum = "";
+    let zeit = "";
 
     if (event.start.dateTime) {
-        datum = new Date(
-            event.start.dateTime
-        ).toLocaleString("de-DE");
-    } else if (event.start.date) {
+
+        const start = new Date(event.start.dateTime);
+
+        datum = start.toLocaleDateString("de-DE", {
+            weekday: "long",
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
+        });
+
+        zeit = start.toLocaleTimeString("de-DE", {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+
+    } else {
+
         datum = event.start.date;
+        zeit = "Ganztägig";
+
     }
 
+    const ort = event.location
+        ? `<div>📍 ${event.location}</div>`
+        : "";
+
+    const link = event.htmlLink
+        ? `<div><a href="${event.htmlLink}" target="_blank">Im Kalender öffnen</a></div>`
+        : "";
+
     div.innerHTML = `
-        <strong>${datum}</strong><br>
-        ${event.summary || "(ohne Titel)"}
-        <hr>
+        <div style="margin-bottom:15px;padding:10px;border:1px solid #ddd;border-radius:8px;">
+            <strong>${datum}</strong><br>
+            🕒 ${zeit}<br>
+            <strong>${event.summary || "(ohne Titel)"}</strong>
+            ${ort}
+            ${link}
+        </div>
     `;
 
     calendarContent.appendChild(div);
