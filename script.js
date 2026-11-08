@@ -1,4 +1,4 @@
-// Firebase Authentication
+  // Firebase Authentication
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
 
@@ -17,6 +17,26 @@ loginBtn.addEventListener("click", async () => {
     console.log("OAuth Credential:");
     console.log(result.credential);
 
+    const token = result.credential.accessToken;
+
+    console.log("ACCESS TOKEN:");
+    console.log(token);
+
+    const response = await fetch(
+  "https://www.googleapis.com/calendar/v3/users/me/calendarList",
+  {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+);
+
+const calendars = await response.json();
+
+console.log("KALENDERLISTE:");
+console.log(calendars);
+
+  
 });
 
 logoutBtn.addEventListener("click", async () => {
