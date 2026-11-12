@@ -135,10 +135,16 @@ auth.onAuthStateChanged(async user => {
         logoutBtn.style.display = "inline-block";
         userInfo.textContent = user.email;
     
-        if (!sessionStorage.getItem("loginRefreshDone")) {
-    console.log("Benutzer angemeldet:", user.email);
-}
-        
+        console.log("Benutzer angemeldet:", user.email);
+    
+        todosRef.get().then(() => {
+    console.log("Todos geladen");
+});
+
+shopRef.get().then(() => {
+    console.log("Shop geladen");
+});
+      
     } else {
 
         sessionStorage.removeItem("loginRefreshDone");
